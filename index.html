@@ -44,6 +44,22 @@
             text-align: center;
             padding: 20px;
         }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 колонки */
+            gap: 20px; /* Отступы между товарами */
+            max-width: 1200px; /* Максимальная ширина сетки */
+            margin-top: 20px; /* Отступ сверху для сетки товаров */
+        }
+        .product {
+            border: 1px solid #ccc; /* Рамка вокруг товара */
+            padding: 10px; /* Отступы внутри товара */
+            text-align: center; /* Центрирование текста внутри товара */
+        }
+        .product img {
+            max-width: 100%; /* Ограничиваем максимальную ширину изображения товара */
+            height: auto; /* Высота автоматически подстраивается */
+        }
     </style>
 </head>
 <body>
@@ -58,25 +74,130 @@
 
     <main>
         <h1>Добро пожаловать в наш магазин!</h1>
-        <button id="buyButton">Купить</button>
-    </main>
+        
+        <!-- Сетка товаров -->
+        <div class="product-grid">
+            <!-- Пример товара -->
+            <div class="product">
+                <img src="box.jpg" alt="Товар">
+                <h2>Товар 1</h2>
+                <button onclick="alert('Товар 1 добавлен в корзину')">В корзину</button>
+            </div>
 
-    <script>
-        let tg = window.Telegram.WebApp;
+            <div class="product">
+                <img src="box.jpg" alt="Товар">
+                <h2>Товар 2</h2>
+                <button onclick="alert('Товар 2 добавлен в корзину')">В корзину</button>
+            </div>
 
-        document.addEventListener('DOMContentLoaded', function () {
-            if (tg) {
-                tg.expand(); // Переход в полноэкранный режим
-            }
-        });
+            <div class="product">
+                <img src="box.jpg" alt="Товар">
+                <h2>Товар 3</h2>
+                <button onclick="alert('Товар 3 добавлен в корзину')">В корзину</button>
+            </div>
 
-        document.getElementById('buyButton').onclick = function() {
-            tg.sendData("Пользователь нажал кнопку 'Купить'");
-            alert("Спасибо за покупку!");
-            tg.close(); // Закрыть WebApp после отправки данных
-        };
+            <!-- Повторите блоки для остальных товаров -->
+            
+             <!-- Пример товара -->
+             <div class="product">
+                <img src="box.jpg" alt="Товар">
+                <h2>Товар 4</h2>
+                <button onclick="alert('Товар 4 добавлен в корзину')">В корзину</button>
+             </div>
 
-        tg.ready(); // Уведомляем Telegram о том, что приложение готово
-    </script>
-</body>
-</html>
+             <div class="product">
+                <img src="box.jpg" alt="Товар">
+                <h2>Товар 5</h2>
+                <button onclick="alert('Товар 5 добавлен в корзину')">В корзину</button>
+             </div>
+
+             <!-- Добавьте еще товары до достижения матрицы 3x5 -->
+             
+             <!-- Пример товара -->
+             <div class="product">
+                <img src="box.jpg" alt="Товар">
+                <h2>Товар 6</h2>
+                <button onclick="alert('Товар 6 добавлен в корзину')">В корзину</button>
+             </div>
+
+             <!-- Пример товара -->
+             <div class="product">
+                <img src="box.jpg" alt="Товар">
+                <h2>Товар 7</h2>
+                <button onclick="alert('Товар 7 добавлен в корзину')">В корзину</button>
+             </div>
+
+             <!-- Пример товара -->
+             <div class="product">
+                <img src="box.jpg" alt="Товар">
+                <h2>Товар 8</h2>
+                <button onclick="alert('Товар 8 добавлен в корзину')">В корзину</button>
+             </div>
+
+             <!-- Пример товара -->
+             <div class="product">
+                <img src="box.jpg" alt="Товар">
+                <h2>Товар 9</h2>
+                <button onclick="alert('Товар 9 добавлен в корзину')">В корзину</button>
+             </div>
+
+             <!-- Пример товара -->
+             <div class="product">
+                <img src="box.jpg" alt="Товар">
+                <h2>Товар 10</h2>
+                <button onclick="alert('Товар 10 добавлен в корзину')">В корзину</button>
+             </div>
+
+              <!-- Пример товара -->
+              <div class="product">
+                <img src="box.jpg" alt="Товар">
+                <h2>Товар 11</h2>
+                <button onclick="alert('Товар 11 добавлен в корзину')">В корзину</button>
+              </div>
+
+              <!-- Пример товара -->
+              <div class="product">
+                <img src="box.jpg" alt="Товар">
+                <h2>Товар 12</h2>
+                <button onclick="alert('Товар 12 добавлен в корзину')">В корзину</button>
+              </div>
+
+              <!-- Пример товара -->
+              <div class="product">
+                  <img src="box.jpg" alt="Товар">
+                  <h2>Товар 13</h2>
+                  <button onclick="alert('Товар 13 добавлен в корзину')">В корзину</button>
+              </div>
+
+              <!-- Пример товара -->
+              <div class="product">
+                  <img src="box.jpg" alt="Товар">
+                  <h2>Товар 14</h2>
+                  <button onclick="alert('Товар 14 добавлен в корзину')">В корзину</button>
+              </div>
+
+              <!-- Пример товара -->
+              <div class="product">
+                  <img src="box.jpg" alt="Товар">
+                  <h2>Товар 15</h2>
+                  <button onclick="alert('Товар 15 добавлен в корзину')">В корзину</button>
+              </div>
+
+          </div> 
+      </main>
+
+      <!-- JavaScript для Telegram Web App -->
+      <script>
+          let tg = window.Telegram.WebApp;
+
+          document.addEventListener('DOMContentLoaded', function () {
+              if (tg) {
+                  tg.expand(); // Переход в полноэкранный режим
+              }
+          });
+
+          tg.ready(); // Уведомляем Telegram о том, что приложение готово
+      </script>
+
+   </body>
+   </html>
