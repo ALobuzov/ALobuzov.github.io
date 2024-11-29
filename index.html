@@ -20,9 +20,16 @@
     <script>
         let tg = window.Telegram.WebApp;
 
+        document.addEventListener('DOMContentLoaded', function () {
+            if (tg) {
+                tg.expand(); // Переход в полноэкранный режим
+            }
+        });
+
         document.getElementById('buyButton').onclick = function() {
             tg.sendData("Пользователь нажал кнопку 'Купить'");
             alert("Спасибо за покупку!");
+            tg.close(); // Закрыть WebApp после отправки данных
         };
 
         tg.ready(); // Уведомляем Telegram о том, что приложение готово
