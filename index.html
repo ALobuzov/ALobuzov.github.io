@@ -8,14 +8,58 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            width: 100%;
+            background-color: #4CAF50; /* Цвет фона шапки */
+            color: white; /* Цвет текста */
+            padding: 10px 0; /* Отступы */
+            text-align: center;
+        }
+        .logo {
+            max-width: 100%; /* Ограничиваем максимальную ширину логотипа */
+            height: auto; /* Высота автоматически подстраивается */
+        }
+        nav {
+            display: flex;
+            justify-content: center; /* Центрирование кнопок меню */
+            margin-top: 10px; /* Отступ сверху */
+        }
+        nav button {
+            background-color: #f1f1f1; /* Цвет кнопок */
+            border: none; /* Убираем рамку */
+            padding: 10px 20px; /* Отступы внутри кнопок */
+            margin: 0 10px; /* Отступы между кнопками */
+            cursor: pointer; /* Курсор при наведении */
+        }
+        nav button:hover {
+            background-color: #ddd; /* Цвет кнопки при наведении */
+        }
+        main {
             text-align: center;
             padding: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Добро пожаловать в наш магазин!</h1>
-    <button id="buyButton">Купить</button>
+    <header>
+        <img src="Headerlogo.jpg" alt="Логотип" class="logo"> <!-- Замените на URL вашего логотипа -->
+        <nav>
+            <button onclick="alert('Кнопка 1 нажата')">Меню 1</button>
+            <button onclick="alert('Кнопка 2 нажата')">Меню 2</button>
+            <button onclick="alert('Кнопка 3 нажата')">Меню 3</button>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Добро пожаловать в наш магазин!</h1>
+        <button id="buyButton">Купить</button>
+    </main>
 
     <script>
         let tg = window.Telegram.WebApp;
