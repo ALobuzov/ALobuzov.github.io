@@ -1,70 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Магазин в Telegram</title>
+    <!-- ... (оставьте существующие мета-теги и стили) ... -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        header {
-            width: 100%;
-            background-color: #4CAF50; /* Цвет фона шапки */
-            color: white; /* Цвет текста */
-            padding: 10px 0; /* Отступы */
-            text-align: center;
-        }
-        .logo {
-            max-width: 100%; /* Ограничиваем максимальную ширину логотипа */
-            height: auto; /* Высота автоматически подстраивается */
-        }
-        nav {
-            display: flex;
-            justify-content: center; /* Центрирование кнопок меню */
-            margin-top: 10px; /* Отступ сверху */
-        }
-        nav button {
-            background-color: #f1f1f1; /* Цвет кнопок */
-            border: none; /* Убираем рамку */
-            padding: 10px 20px; /* Отступы внутри кнопок */
-            margin: 0 10px; /* Отступы между кнопками */
-            cursor: pointer; /* Курсор при наведении */
-        }
-        nav button:hover {
-            background-color: #ddd; /* Цвет кнопки при наведении */
-        }
-        main {
-            text-align: center;
-            padding: 20px;
-        }
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 колонки */
-            gap: 20px; /* Отступы между товарами */
-            max-width: 1200px; /* Максимальная ширина сетки */
-            margin-top: 20px; /* Отступ сверху для сетки товаров */
-        }
-        .product {
-            border: 1px solid #ccc; /* Рамка вокруг товара */
-            padding: 10px; /* Отступы внутри товара */
-            text-align: center; /* Центрирование текста внутри товара */
-        }
-        .product img {
-            max-width: 100%; /* Ограничиваем максимальную ширину изображения товара */
-            height: auto; /* Высота автоматически подстраивается */
-        }
-    </style>
 </head>
 <body>
     <header>
-        <img src="Headerlogo.jpg" alt="Логотип" class="logo"> <!-- Замените на URL вашего логотипа -->
+        <img src="Headerlogo.jpg" alt="Логотип" class="logo">
         <nav>
             <button onclick="alert('Кнопка 1 нажата')">Меню 1</button>
             <button onclick="alert('Кнопка 2 нажата')">Меню 2</button>
@@ -75,129 +17,47 @@
     <main>
         <h1>Добро пожаловать в наш магазин!</h1>
         
-        <!-- Сетка товаров -->
-        <div class="product-grid">
-            <!-- Пример товара -->
-            <div class="product">
-                <img src="box.jpg" alt="Товар">
-                <h4>Товар 1</h4>
-                <button onclick="alert('Товар 1 добавлен в корзину')">В корзину</button>
-            </div>
+        <!-- Контейнер для динамической загрузки товаров -->
+        <div class="product-grid" id="product-container"></div>
+    </main>
 
-            <div class="product">
-                <img src="box.jpg" alt="Товар">
-                <h4>Товар 1</h4>
-                <button onclick="alert('Товар 2 добавлен в корзину')">В корзину</button>
-            </div>
+    <script>
+        let tg = window.Telegram.WebApp;
 
-            <div class="product">
-                <img src="box.jpg" alt="Товар">
-                <h4>Товар 1</h4>
-                <button onclick="alert('Товар 3 добавлен в корзину')">В корзину</button>
-            </div>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (tg) {
+                tg.expand();
+            }
+            loadProducts();
+        });
 
-            <!-- Повторите блоки для остальных товаров -->
-            
-             <!-- Пример товара -->
-             <div class="product">
-                <img src="box.jpg" alt="Товар">
-                <h4>Товар 1</h4>
-                <button onclick="alert('Товар 4 добавлен в корзину')">В корзину</button>
-             </div>
+        tg.ready();
 
-             <div class="product">
-                <img src="box.jpg" alt="Товар">
-                <h4>Товар 1</h4>
-                <button onclick="alert('Товар 5 добавлен в корзину')">В корзину</button>
-             </div>
+        function loadProducts() {
+            fetch('http://127.0.0.1:5000/api/products')
+                .then(response => response.json())
+                .then(products => {
+                    const container = document.getElementById('product-container');
+                    products.forEach(product => {
+                        const productDiv = document.createElement('div');
+                        productDiv.className = 'product';
+                        productDiv.innerHTML = `
+                            <img src="${product.image || 'box.jpg'}" alt="${product.name}">
+                            <h4>${product.name}</h4>
+                            <p>${product.description}</p>
+                            <p>Цена: ${product.price} руб.</p>
+                            <button onclick="addToCart(${product.id})">В корзину</button>
+                        `;
+                        container.appendChild(productDiv);
+                    });
+                })
+                .catch(error => console.error('Ошибка при загрузке данных:', error));
+        }
 
-             <!-- Добавьте еще товары до достижения матрицы 3x5 -->
-             
-             <!-- Пример товара -->
-             <div class="product">
-                <img src="box.jpg" alt="Товар">
-                <h4>Товар 1</h4>
-                <button onclick="alert('Товар 6 добавлен в корзину')">В корзину</button>
-             </div>
-
-             <!-- Пример товара -->
-             <div class="product">
-                <img src="box.jpg" alt="Товар">
-                <h4>Товар 1</h4>
-                <button onclick="alert('Товар 7 добавлен в корзину')">В корзину</button>
-             </div>
-
-             <!-- Пример товара -->
-             <div class="product">
-                <img src="box.jpg" alt="Товар">
-                <h4>Товар 1</h4>
-                <button onclick="alert('Товар 8 добавлен в корзину')">В корзину</button>
-             </div>
-
-             <!-- Пример товара -->
-             <div class="product">
-                <img src="box.jpg" alt="Товар">
-                <h4>Товар 1</h4>
-                <button onclick="alert('Товар 9 добавлен в корзину')">В корзину</button>
-             </div>
-
-             <!-- Пример товара -->
-             <div class="product">
-                <img src="box.jpg" alt="Товар">
-                <h4>Товар 1</h4>
-                <button onclick="alert('Товар 10 добавлен в корзину')">В корзину</button>
-             </div>
-
-              <!-- Пример товара -->
-              <div class="product">
-                <img src="box.jpg" alt="Товар">
-                <h4>Товар 1</h4>
-                <button onclick="alert('Товар 11 добавлен в корзину')">В корзину</button>
-              </div>
-
-              <!-- Пример товара -->
-              <div class="product">
-                <img src="box.jpg" alt="Товар">
-                <h4>Товар 1</h4>
-                <button onclick="alert('Товар 12 добавлен в корзину')">В корзину</button>
-              </div>
-
-              <!-- Пример товара -->
-              <div class="product">
-                  <img src="box.jpg" alt="Товар">
-                  <h4>Товар 1</h4>
-                  <button onclick="alert('Товар 13 добавлен в корзину')">В корзину</button>
-              </div>
-
-              <!-- Пример товара -->
-              <div class="product">
-                  <img src="box.jpg" alt="Товар">
-                  <h4>Товар 1</h4>
-                  <button onclick="alert('Товар 14 добавлен в корзину')">В корзину</button>
-              </div>
-
-              <!-- Пример товара -->
-              <div class="product">
-                  <img src="box.jpg" alt="Товар">
-                  <h4>Товар 1</h4>
-                  <button onclick="alert('Товар 15 добавлен в корзину')">В корзину</button>
-              </div>
-
-          </div> 
-      </main>
-
-      <!-- JavaScript для Telegram Web App -->
-      <script>
-          let tg = window.Telegram.WebApp;
-
-          document.addEventListener('DOMContentLoaded', function () {
-              if (tg) {
-                  tg.expand(); // Переход в полноэкранный режим
-              }
-          });
-
-          tg.ready(); // Уведомляем Telegram о том, что приложение готово
-      </script>
-
-   </body>
-   </html>
+        function addToCart(productId) {
+            alert(`Товар ${productId} добавлен в корзину`);
+            // Здесь можно добавить логику добавления товара в корзину
+        }
+    </script>
+</body>
+</html>
